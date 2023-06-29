@@ -1,0 +1,15 @@
+aws-glue-schema-registry==1.1.2
+boto3==1.26.88
+fastavro==1.7.3
+fastjsonschema==2.16.3
+jsonschema==4.17.3
+kafka-python==2.0.2
+robot-mongodb-library==0.0.5
+robotframework==6.0.2
+robotframework-faker==5.0.0
+robotframework-jsonlibrary==0.5
+robotframework-pythonlibcore==4.0.0
+robotframework-requests==0.9.4
+robotframework-seleniumlibrary==6.0.0
+setuptools==67.5.1
+waiting==1.4.1

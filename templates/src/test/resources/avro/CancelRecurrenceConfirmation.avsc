@@ -1,0 +1,31 @@
+{
+    "name": "CancelRecurrenceConfirmation",
+    "type": "record",
+    "namespace": "br.com.portoseguro.payments.event.finance",
+    "fields": [
+      {
+        "name": "externalId",
+        "type": "string"
+      },
+      {
+        "name": "paymentOrderId",
+        "type": "string"
+      },
+      {
+        "name": "chargeId",
+        "type": "string"
+      },
+      {
+        "name": "transactionCode",
+        "type": "string"
+      },
+      {
+        "name": "returnRecurrenceCode",
+        "type": "string"
+      },
+      {
+        "name": "msgRecurrence",
+        "type": "string"
+      }
+    ]
+  }

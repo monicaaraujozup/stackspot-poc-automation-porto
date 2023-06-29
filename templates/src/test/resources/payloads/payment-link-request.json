@@ -1,0 +1,33 @@
+{
+    "idExterno": "1122233344",
+    "metadados": {
+        "contrato_comercial": "",
+        "endosso": "",
+        "codigo_empresa": "001",
+        "codigo_ramo": "531",
+        "parcela": "2"
+    },
+    "valorTotal": "1000",
+    "tempoExpiracao": "60",
+    "planoPagamento": [
+        {
+            "descricao": "Recurrence",
+            "parcelas": "2",
+            "valorTotal": "1000"
+        }
+    ],
+    "produto": {
+        "codigo": "01",
+        "descricao": "01"
+    },
+    "traceId": "1",
+    "card": {
+        "id": "teste",
+        "customerId": "teste",
+        "firstDigits": "123456",
+        "lastDigits": "4321",
+        "brand": "VISA"
+    },
+    "paymentOrderId": "teste",
+    "chargeId": "teste-1"
+}

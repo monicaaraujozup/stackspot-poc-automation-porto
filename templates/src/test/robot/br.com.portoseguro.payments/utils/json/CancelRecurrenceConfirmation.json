@@ -1,0 +1,8 @@
+{
+    "externalId": "teste-onboarding",
+    "paymentOrderId": "teste",
+    "chargeId": "teste",
+    "transactionCode": "123",
+    "returnRecurrenceCode": "0",
+    "msgRecurrence": "teste-robot"
+}

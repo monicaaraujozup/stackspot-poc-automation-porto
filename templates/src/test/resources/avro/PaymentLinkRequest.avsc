@@ -1,0 +1,148 @@
+{
+    "name": "PaymentLinkRequest",
+    "type": "record",
+    "namespace": "br.com.portoseguro.payments.event.finance",
+    "fields": [
+      {
+        "name": "idExterno",
+        "type": "string"
+      },
+      {
+        "name": "metadados",
+        "type": {
+          "type": "map",
+          "values": "string",
+          "default": {}
+        }
+      },
+      {
+        "name": "valorTotal",
+        "type": "string"
+      },
+      {
+        "name": "tempoExpiracao",
+        "type": "string"
+      },
+      {
+        "name": "planoPagamento",
+        "type": {
+          "type": "array",
+          "items": {
+            "name": "plano",
+            "type": "record",
+            "fields": [
+              {
+                "name": "descricao",
+                "type": "string"
+              },
+              {
+                "name": "parcelas",
+                "type": "string"
+              },
+              {
+                "name": "valorTotal",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "produto",
+        "type": {
+          "name": "Product",
+          "namespace": "br.com.portoseguro.payments.event.finance",
+          "type": "record",
+          "fields": [
+            {
+              "name": "codigo",
+              "type": "string"
+            },
+            {
+              "name": "descricao",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      {
+        "name": "traceId",
+        "type": [
+          "null",
+          "string"
+        ],
+        "default": null
+      },
+      {
+        "name": "paymentOrderId",
+        "type": [
+          "null",
+          "string"
+        ],
+        "default": null
+      },
+      {
+        "name": "chargeId",
+        "type": [
+          "null",
+          "string"
+        ],
+        "default": null
+      },
+      {
+        "name": "card",
+        "type": {
+          "name": "CreditCard",
+          "namespace": "br.com.portoseguro.payments.event.finance",
+          "type": "record",
+          "fields": [
+            {
+              "name": "id",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "customerId",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "firstDigits",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "lastDigits",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "brand",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "privateLabel",
+              "type": "boolean",
+              "default": false
+            }
+          ]
+        }
+      }
+    ]
+  }

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.11.1 on win32)" generated="20230508 15:33:38.514" rpa="false" schemaversion="3">
+<suite id="s1" name="Finance-Rule-Cancellation">
+<suite id="s1-s1" name="Finance-Rule-Cancellation" source="D:\Repositórios\testes-robot-framework\src\test\resources\features\finance-rule-cancellation.robot">
+<test id="s1-s1-t1" name="Scenario: Deve enviar a informação de cancelamento de contrato para a api de banco" line="9">
+<kw name="Dado uma solicitacao de insercao de parcela na regua do link com abecs &quot;IRREVERSIBLE&quot; e parcela &quot;2&quot;" library="FinanceRuleCancellationSteps" sourcename="uma solicitacao de insercao de parcela na regua do link com abecs &quot;${tipo_do_codigo}&quot; e parcela &quot;${numero_parcela}&quot;">
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${numero_parcela}</arg>
+<arg>${numero_parcela}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20230508 15:33:40.020" level="INFO">${numero_parcela} = 2</msg>
+<status status="PASS" starttime="20230508 15:33:40.019" endtime="20230508 15:33:40.020"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Content-type=${APP_CONTENT_TYPE}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230508 15:33:40.020" level="INFO">${headers} = {'Content-type': 'application/json'}</msg>
+<status status="PASS" starttime="20230508 15:33:40.020" endtime="20230508 15:33:40.020"/>
+</kw>
+<kw name="Uuid 4" library="FakerLibrary">
+<var>${id_externo}</var>
+<doc>Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.</doc>
+<msg timestamp="20230508 15:33:40.020" level="INFO">${id_externo} = ca5e5bd3-1847-47f2-b22c-6c89743a7f96</msg>
+<status status="PASS" starttime="20230508 15:33:40.020" endtime="20230508 15:33:40.020"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${id_externo}</arg>
+<arg>${id_externo}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20230508 15:33:40.021" level="INFO">${id_externo} = ca5e5bd3-1847-47f2-b22c-6c89743a7f96</msg>
+<status status="PASS" starttime="20230508 15:33:40.020" endtime="20230508 15:33:40.021"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${json_file}</var>
+<arg>${json_path}</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20230508 15:33:40.022" level="INFO">${json_file} = {'externalID': '00111', 'currentInstallment': '2', 'paymentOrderID': 'TESTE_AUTOMATIZADO', 'chargeID': 'TESTE_AUTOMATIZADO', 'amount': '50.0', 'productID': '000', 'subProduct': '000', 'productCategory...</msg>
+<status status="PASS" starttime="20230508 15:33:40.021" endtime="20230508 15:33:40.022"/>
+</kw>
+<kw name="Update Value To Json" library="JSONLibrary">
+<var>${body}</var>
+<arg>${json_file}</arg>
+<arg>$..externalID</arg>
+<arg>${id_externo}</arg>
+<doc>Update value to JSON using JSONPath</doc>
+<msg timestamp="20230508 15:33:40.039" level="INFO">${body} = {'externalID': 'ca5e5bd3-1847-47f2-b22c-6c89743a7f96', 'currentInstallment': '2', 'paymentOrderID': 'TESTE_AUTOMATIZADO', 'chargeID': 'TESTE_AUTOMATIZADO', 'amount': '50.0', 'productID': '000', 'subPr...</msg>
+<status status="PASS" starttime="20230508 15:33:40.022" endtime="20230508 15:33:40.039"/>
+</kw>
+<kw name="Update Value To Json" library="JSONLibrary">
+<var>${body}</var>
+<arg>${body}</arg>
+<arg>$..currentIntallment</arg>
+<arg>${numero_parcela}</arg>
+<doc>Update value to JSON using JSONPath</doc>
+<msg timestamp="20230508 15:33:40.053" level="INFO">${body} = {'externalID': 'ca5e5bd3-1847-47f2-b22c-6c89743a7f96', 'currentInstallment': '2', 'paymentOrderID': 'TESTE_AUTOMATIZADO', 'chargeID': 'TESTE_AUTOMATIZADO', 'amount': '50.0', 'productID': '000', 'subPr...</msg>
+<status status="PASS" starttime="20230508 15:33:40.039" endtime="20230508 15:33:40.053"/>
+</kw>
+<kw name="Update Value To Json" library="JSONLibrary">
+<var>${body}</var>
+<arg>${body}</arg>
+<arg>$..codeType</arg>
+<arg>${tipo_do_codigo}</arg>
+<doc>Update value to JSON using JSONPath</doc>
+<msg timestamp="20230508 15:33:40.071" level="INFO">${body} = {'externalID': 'ca5e5bd3-1847-47f2-b22c-6c89743a7f96', 'currentInstallment': '2', 'paymentOrderID': 'TESTE_AUTOMATIZADO', 'chargeID': 'TESTE_AUTOMATIZADO', 'amount': '50.0', 'productID': '000', 'subPr...</msg>
+<status status="PASS" starttime="20230508 15:33:40.053" endtime="20230508 15:33:40.071"/>
+</kw>
+<kw name="Enviar uma requisição com método POST" library="Requests">
+<arg>ingressDev</arg>
+<arg>${null}</arg>
+<arg>${INGRESS_URL}</arg>
+<arg>${rotaReguaLink}</arg>
+<arg>${headers}</arg>
+<arg>json</arg>
+<arg>${body}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=${alias}</arg>
+<arg>auth=${auth}</arg>
+<arg>url=${baseUrl}</arg>
+<arg>headers=${headers}</arg>
+<arg>verify=false</arg>
+<arg>disable_warnings=1</arg>
+<arg>proxies=htpps</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230508 15:33:40.072" level="INFO">Creating Session using : alias=ingressDev, url=https://internal-k8s-meiosdep-ingressm-64700d1053-943128772.ca-central-1.elb.amazonaws.com, headers={'Content-type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=htpps, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230508 15:33:40.071" endtime="20230508 15:33:40.072"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=${alias}</arg>
+<arg>url=${endpoint}</arg>
+<arg>${body_type}=${body_request}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230508 15:33:40.802" level="INFO">POST Request : url=https://internal-k8s-meiosdep-ingressm-64700d1053-943128772.ca-central-1.elb.amazonaws.com/finance-rule-storage-api/v1/ruleapi 
+ path_url=/finance-rule-storage-api/v1/ruleapi 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-type': 'application/json', 'Content-Length': '941'} 
+ body=b'{"externalID": "ca5e5bd3-1847-47f2-b22c-6c89743a7f96", "currentInstallment": "2", "paymentOrderID": "TESTE_AUTOMATIZADO", "chargeID": "TESTE_AUTOMATIZADO", "amount": "50.0", "productID": "000", "subProduct": "000", "productCategory": "000", "lasTransactionId ": "TESTE_AUTOMATIZADO", "authCode": "0000000", "orderID": "TESTE_AUTOMATIZADO", "transactionID": "000000", "transactionTimestamp": "2023-01-09T11:34:55.775", "acquirer": "TESTE_AUTOMATIZADO", "brand": "VISA", "cardId": "TESTE_AUTOMATIZADO", "customerId": "TESTE_AUTOMATIZADO", "firstDigits": "123456", "lastDigits": "7890", "installments": "3", "endorsement": "", "companyCode": "000", "comercialContract": "", "compositionInstallmentValue": "0", "message": "ESSE E UM TESTE AUTOMATIZADO", "codeType": "IRREVERSIBLE", "posMessage": "ESSE E UM TESTE AUTOMATIZADO", "chargeInterval": 1, "maximumBillingPeriod": 1, "secondOptionPaymentMethod": "ouro", "traceId": "TESTE_AUTOMATIZADO"}' 
+ </msg>
+<msg timestamp="20230508 15:33:40.802" level="INFO">POST Response : url=https://internal-k8s-meiosdep-ingressm-64700d1053-943128772.ca-central-1.elb.amazonaws.com/finance-rule-storage-api/v1/ruleapi 
+ status=201, reason= 
+ headers={'Date': 'Mon, 08 May 2023 18:33:40 GMT', 'Content-Length': '0', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230508 15:33:40.803" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230508 15:33:40.072" endtime="20230508 15:33:40.803"/>
+</kw>
+<status status="PASS" starttime="20230508 15:33:40.071" endtime="20230508 15:33:40.803"/>
+</kw>
+<status status="PASS" starttime="20230508 15:33:40.019" endtime="20230508 15:33:40.803"/>
+</kw>
+<kw name="Quando um evento no topico &quot;fin-cancellation-recurrence&quot;" library="FinanceRuleCancellationSteps" sourcename="um evento no topico &quot;${topico}&quot;">
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${EVENTO}</var>
+<arg>${EVENTO_PATH}</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20230508 15:33:40.805" level="INFO">${EVENTO} = {'externalId': 'teste-onboarding', 'paymentOrderId': 'teste', 'chargeId': 'teste', 'transactionCode': '123', 'returnRecurrenceCode': '0', 'msgRecurrence': 'teste-robot'}</msg>
+<status status="PASS" starttime="20230508 15:33:40.804" endtime="20230508 15:33:40.805"/>
+</kw>
+<kw name="Update Value To Json" library="JSONLibrary">
+<var>${EVENTO}</var>
+<arg>${EVENTO}</arg>
+<arg>$..externalId</arg>
+<arg>${id_externo}</arg>
+<doc>Update value to JSON using JSONPath</doc>
+<msg timestamp="20230508 15:33:40.817" level="INFO">${EVENTO} = {'externalId': 'ca5e5bd3-1847-47f2-b22c-6c89743a7f96', 'paymentOrderId': 'teste', 'chargeId': 'teste', 'transactionCode': '123', 'returnRecurrenceCode': '0', 'msgRecurrence': 'teste-robot'}</msg>
+<status status="PASS" starttime="20230508 15:33:40.805" endtime="20230508 15:33:40.817"/>
+</kw>
+<kw name="Kafka Producer" library="kafkaProducer">
+<arg>${topico}</arg>
+<arg>${SCHEMA}</arg>
+<arg>${EVENTO}</arg>
+<arg>${KAFKA_BOOTSTRAP_SERVERS}</arg>
+<msg timestamp="20230508 15:33:42.892" level="INFO">{'externalId': 'ca5e5bd3-1847-47f2-b22c-6c89743a7f96', 'paymentOrderId': 'teste', 'chargeId': 'teste', 'transactionCode': '123', 'returnRecurrenceCode': '0', 'msgRecurrence': 'teste-robot'}
+evento produzido: {'externalId': 'ca5e5bd3-1847-47f2-b22c-6c89743a7f96', 'paymentOrderId': 'teste', 'chargeId': 'teste', 'transactionCode': '123', 'returnRecurrenceCode': '0', 'msgRecurrence': 'teste-robot'}</msg>
+<status status="PASS" starttime="20230508 15:33:40.817" endtime="20230508 15:33:42.892"/>
+</kw>
+<status status="PASS" starttime="20230508 15:33:40.803" endtime="20230508 15:33:42.892"/>
+</kw>
+<kw name="Então ao consultar a api da regua do link buscando por id e parcela o status code &quot;200&quot;" library="FinanceRuleCancellationSteps" sourcename="ao consultar a api da regua do link buscando por id e parcela o status code &quot;${status_code}&quot;">
+<kw name="Enviar uma requisição com método GET" library="Requests">
+<var>${response}</var>
+<arg>ingressDev</arg>
+<arg>${INGRESS_URL}</arg>
+<arg>${rotaReguaLink}/idexterno/${id_externo}/parcela/${numero_parcela}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=${alias}</arg>
+<arg>url=${baseUrl}</arg>
+<arg>verify=false</arg>
+<arg>disable_warnings=1</arg>
+<arg>proxies=htpps</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230508 15:33:42.893" level="INFO">Creating Session using : alias=ingressDev, url=https://internal-k8s-meiosdep-ingressm-64700d1053-943128772.ca-central-1.elb.amazonaws.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=htpps, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230508 15:33:42.893" endtime="20230508 15:33:42.893"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=${alias}</arg>
+<arg>url=${endpoint}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230508 15:33:43.565" level="INFO">GET Request : url=https://internal-k8s-meiosdep-ingressm-64700d1053-943128772.ca-central-1.elb.amazonaws.com/finance-rule-storage-api/v1/ruleapi/idexterno/ca5e5bd3-1847-47f2-b22c-6c89743a7f96/parcela/2 
+ path_url=/finance-rule-storage-api/v1/ruleapi/idexterno/ca5e5bd3-1847-47f2-b22c-6c89743a7f96/parcela/2 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230508 15:33:43.565" level="INFO">GET Response : url=https://internal-k8s-meiosdep-ingressm-64700d1053-943128772.ca-central-1.elb.amazonaws.com/finance-rule-storage-api/v1/ruleapi/idexterno/ca5e5bd3-1847-47f2-b22c-6c89743a7f96/parcela/2 
+ status=200, reason= 
+ headers={'Date': 'Mon, 08 May 2023 18:33:43 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive'} 
+ body={"externalID":"ca5e5bd3-1847-47f2-b22c-6c89743a7f96","currentInstallment":"2","paymentOrderID":"TESTE_AUTOMATIZADO","chargeID":"TESTE_AUTOMATIZADO","amount":"50.0","productID":"000","subProduct":"000","productCategory":"000","lasTransactionId":null,"authCode":"0000000","orderID":"TESTE_AUTOMATIZADO","transactionID":"000000","transactionTimestamp":"2023-01-09T11:34:55.775","acquirer":"TESTE_AUTOMATIZADO","brand":"VISA","cardId":"TESTE_AUTOMATIZADO","customerId":"TESTE_AUTOMATIZADO","firstDigits":"123456","lastDigits":"7890","installments":"3","endorsement":"","companyCode":"000","comercialContract":"","compositionInstallmentValue":"0","message":"ESSE E UM TESTE AUTOMATIZADO","codeType":"IRREVERSIBLE","posMessage":"ESSE E UM TESTE AUTOMATIZADO","chargeInterval":1,"maximumBillingPeriod":1,"secondOptionPaymentMethod":"ouro","lastProcessDate":"2023-05-08T14:33:40.717","insertionDate":"2023-05-08T15:33:40.717","processCounter":0,"state":"RECORRENCIA_CANCELADA","transitions":"REGUA_CRIADA, RECORRENCIA_CANCELADA","traceId":"TESTE_AUTOMATIZADO","expirationDateBankSlip":null,"communications":null} 
+ </msg>
+<msg timestamp="20230508 15:33:43.565" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230508 15:33:42.894" endtime="20230508 15:33:43.565"/>
+</kw>
+<msg timestamp="20230508 15:33:43.565" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230508 15:33:42.893" endtime="20230508 15:33:43.565"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${response}</arg>
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20230508 15:33:43.565" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230508 15:33:43.565" endtime="20230508 15:33:43.565"/>
+</kw>
+<status status="PASS" starttime="20230508 15:33:42.893" endtime="20230508 15:33:43.565"/>
+</kw>
+<kw name="E o valor do campo &quot;state&quot; deve estar com o valor &quot;RECORRENCIA_CANCELADA&quot;" library="FinanceRuleCancellationSteps" sourcename="o valor do campo &quot;${campo}&quot; deve estar com o valor &quot;${valor_campo}&quot;">
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${campo_response}</var>
+<arg>${response.json()}</arg>
+<arg>${campo}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20230508 15:33:43.606" level="INFO">${campo_response} = ['RECORRENCIA_CANCELADA']</msg>
+<status status="PASS" starttime="20230508 15:33:43.566" endtime="20230508 15:33:43.606"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${campo_response}</var>
+<arg>${campo_response[0]}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20230508 15:33:43.607" level="INFO">${campo_response} = RECORRENCIA_CANCELADA</msg>
+<status status="PASS" starttime="20230508 15:33:43.606" endtime="20230508 15:33:43.607"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${campo_response}</arg>
+<arg>${valor_campo}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230508 15:33:43.607" endtime="20230508 15:33:43.607"/>
+</kw>
+<status status="PASS" starttime="20230508 15:33:43.566" endtime="20230508 15:33:43.607"/>
+</kw>
+<kw name="E o valor do campo &quot;transitions&quot; deve estar com o valor &quot;REGUA_CRIADA, RECORRENCIA_CANCELADA&quot;" library="FinanceRuleCancellationSteps" sourcename="o valor do campo &quot;${campo}&quot; deve estar com o valor &quot;${valor_campo}&quot;">
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${campo_response}</var>
+<arg>${response.json()}</arg>
+<arg>${campo}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20230508 15:33:43.619" level="INFO">${campo_response} = ['REGUA_CRIADA, RECORRENCIA_CANCELADA']</msg>
+<status status="PASS" starttime="20230508 15:33:43.607" endtime="20230508 15:33:43.619"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${campo_response}</var>
+<arg>${campo_response[0]}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20230508 15:33:43.621" level="INFO">${campo_response} = REGUA_CRIADA, RECORRENCIA_CANCELADA</msg>
+<status status="PASS" starttime="20230508 15:33:43.619" endtime="20230508 15:33:43.621"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${campo_response}</arg>
+<arg>${valor_campo}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230508 15:33:43.621" endtime="20230508 15:33:43.621"/>
+</kw>
+<status status="PASS" starttime="20230508 15:33:43.607" endtime="20230508 15:33:43.621"/>
+</kw>
+<tag>finance-rule-cancellation</tag>
+<tag>processa-cancelamento-de-contrato-irreversible</tag>
+<tag>regression</tag>
+<tag>regua-de-retentativas</tag>
+<status status="PASS" starttime="20230508 15:33:40.018" endtime="20230508 15:33:43.621"/>
+</test>
+<test id="s1-s1-t2" name="Scenario: Deve enviar a informação de cancelamento de contrato para a api de banco com abecs UNKNOWN" line="17">
+<kw name="Dado uma solicitacao de insercao de parcela na regua do link com abecs &quot;UNKNOWN&quot; e parcela &quot;2&quot;" library="FinanceRuleCancellationSteps" sourcename="uma solicitacao de insercao de parcela na regua do link com abecs &quot;${tipo_do_codigo}&quot; e parcela &quot;${numero_parcela}&quot;">
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${numero_parcela}</arg>
+<arg>${numero_parcela}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20230508 15:33:43.624" level="INFO">${numero_parcela} = 2</msg>
+<status status="PASS" starttime="20230508 15:33:43.623" endtime="20230508 15:33:43.624"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Content-type=${APP_CONTENT_TYPE}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230508 15:33:43.624" level="INFO">${headers} = {'Content-type': 'application/json'}</msg>
+<status status="PASS" starttime="20230508 15:33:43.624" endtime="20230508 15:33:43.624"/>
+</kw>
+<kw name="Uuid 4" library="FakerLibrary">
+<var>${id_externo}</var>
+<doc>Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.</doc>
+<msg timestamp="20230508 15:33:43.624" level="INFO">${id_externo} = 65105f72-2b7d-4cc0-b36e-3ec17f89e605</msg>
+<status status="PASS" starttime="20230508 15:33:43.624" endtime="20230508 15:33:43.624"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${id_externo}</arg>
+<arg>${id_externo}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20230508 15:33:43.625" level="INFO">${id_externo} = 65105f72-2b7d-4cc0-b36e-3ec17f89e605</msg>
+<status status="PASS" starttime="20230508 15:33:43.624" endtime="20230508 15:33:43.625"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${json_file}</var>
+<arg>${json_path}</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20230508 15:33:43.626" level="INFO">${json_file} = {'externalID': '00111', 'currentInstallment': '2', 'paymentOrderID': 'TESTE_AUTOMATIZADO', 'chargeID': 'TESTE_AUTOMATIZADO', 'amount': '50.0', 'productID': '000', 'subProduct': '000', 'productCategory...</msg>
+<status status="PASS" starttime="20230508 15:33:43.625" endtime="20230508 15:33:43.626"/>
+</kw>
+<kw name="Update Value To Json" library="JSONLibrary">
+<var>${body}</var>
+<arg>${json_file}</arg>
+<arg>$..externalID</arg>
+<arg>${id_externo}</arg>
+<doc>Update value to JSON using JSONPath</doc>
+<msg timestamp="20230508 15:33:43.639" level="INFO">${body} = {'externalID': '65105f72-2b7d-4cc0-b36e-3ec17f89e605', 'currentInstallment': '2', 'paymentOrderID': 'TESTE_AUTOMATIZADO', 'chargeID': 'TESTE_AUTOMATIZADO', 'amount': '50.0', 'productID': '000', 'subPr...</msg>
+<status status="PASS" starttime="20230508 15:33:43.626" endtime="20230508 15:33:43.639"/>
+</kw>
+<kw name="Update Value To Json" library="JSONLibrary">
+<var>${body}</var>
+<arg>${body}</arg>
+<arg>$..currentIntallment</arg>
+<arg>${numero_parcela}</arg>
+<doc>Update value to JSON using JSONPath</doc>
+<msg timestamp="20230508 15:33:43.652" level="INFO">${body} = {'externalID': '65105f72-2b7d-4cc0-b36e-3ec17f89e605', 'currentInstallment': '2', 'paymentOrderID': 'TESTE_AUTOMATIZADO', 'chargeID': 'TESTE_AUTOMATIZADO', 'amount': '50.0', 'productID': '000', 'subPr...</msg>
+<status status="PASS" starttime="20230508 15:33:43.639" endtime="20230508 15:33:43.652"/>
+</kw>
+<kw name="Update Value To Json" library="JSONLibrary">
+<var>${body}</var>
+<arg>${body}</arg>
+<arg>$..codeType</arg>
+<arg>${tipo_do_codigo}</arg>
+<doc>Update value to JSON using JSONPath</doc>
+<msg timestamp="20230508 15:33:43.665" level="INFO">${body} = {'externalID': '65105f72-2b7d-4cc0-b36e-3ec17f89e605', 'currentInstallment': '2', 'paymentOrderID': 'TESTE_AUTOMATIZADO', 'chargeID': 'TESTE_AUTOMATIZADO', 'amount': '50.0', 'productID': '000', 'subPr...</msg>
+<status status="PASS" starttime="20230508 15:33:43.652" endtime="20230508 15:33:43.665"/>
+</kw>
+<kw name="Enviar uma requisição com método POST" library="Requests">
+<arg>ingressDev</arg>
+<arg>${null}</arg>
+<arg>${INGRESS_URL}</arg>
+<arg>${rotaReguaLink}</arg>
+<arg>${headers}</arg>
+<arg>json</arg>
+<arg>${body}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=${alias}</arg>
+<arg>auth=${auth}</arg>
+<arg>url=${baseUrl}</arg>
+<arg>headers=${headers}</arg>
+<arg>verify=false</arg>
+<arg>disable_warnings=1</arg>
+<arg>proxies=htpps</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230508 15:33:43.666" level="INFO">Creating Session using : alias=ingressDev, url=https://internal-k8s-meiosdep-ingressm-64700d1053-943128772.ca-central-1.elb.amazonaws.com, headers={'Content-type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=htpps, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230508 15:33:43.665" endtime="20230508 15:33:43.666"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=${alias}</arg>
+<arg>url=${endpoint}</arg>
+<arg>${body_type}=${body_request}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230508 15:33:44.362" level="INFO">POST Request : url=https://internal-k8s-meiosdep-ingressm-64700d1053-943128772.ca-central-1.elb.amazonaws.com/finance-rule-storage-api/v1/ruleapi 
+ path_url=/finance-rule-storage-api/v1/ruleapi 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-type': 'application/json', 'Content-Length': '936'} 
+ body=b'{"externalID": "65105f72-2b7d-4cc0-b36e-3ec17f89e605", "currentInstallment": "2", "paymentOrderID": "TESTE_AUTOMATIZADO", "chargeID": "TESTE_AUTOMATIZADO", "amount": "50.0", "productID": "000", "subProduct": "000", "productCategory": "000", "lasTransactionId ": "TESTE_AUTOMATIZADO", "authCode": "0000000", "orderID": "TESTE_AUTOMATIZADO", "transactionID": "000000", "transactionTimestamp": "2023-01-09T11:34:55.775", "acquirer": "TESTE_AUTOMATIZADO", "brand": "VISA", "cardId": "TESTE_AUTOMATIZADO", "customerId": "TESTE_AUTOMATIZADO", "firstDigits": "123456", "lastDigits": "7890", "installments": "3", "endorsement": "", "companyCode": "000", "comercialContract": "", "compositionInstallmentValue": "0", "message": "ESSE E UM TESTE AUTOMATIZADO", "codeType": "UNKNOWN", "posMessage": "ESSE E UM TESTE AUTOMATIZADO", "chargeInterval": 1, "maximumBillingPeriod": 1, "secondOptionPaymentMethod": "ouro", "traceId": "TESTE_AUTOMATIZADO"}' 
+ </msg>
+<msg timestamp="20230508 15:33:44.363" level="INFO">POST Response : url=https://internal-k8s-meiosdep-ingressm-64700d1053-943128772.ca-central-1.elb.amazonaws.com/finance-rule-storage-api/v1/ruleapi 
+ status=201, reason= 
+ headers={'Date': 'Mon, 08 May 2023 18:33:44 GMT', 'Content-Length': '0', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230508 15:33:44.363" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230508 15:33:43.666" endtime="20230508 15:33:44.363"/>
+</kw>
+<status status="PASS" starttime="20230508 15:33:43.665" endtime="20230508 15:33:44.363"/>
+</kw>
+<status status="PASS" starttime="20230508 15:33:43.623" endtime="20230508 15:33:44.363"/>
+</kw>
+<kw name="Quando um evento no topico &quot;fin-cancellation-recurrence&quot;" library="FinanceRuleCancellationSteps" sourcename="um evento no topico &quot;${topico}&quot;">
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${EVENTO}</var>
+<arg>${EVENTO_PATH}</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20230508 15:33:44.365" level="INFO">${EVENTO} = {'externalId': 'teste-onboarding', 'paymentOrderId': 'teste', 'chargeId': 'teste', 'transactionCode': '123', 'returnRecurrenceCode': '0', 'msgRecurrence': 'teste-robot'}</msg>
+<status status="PASS" starttime="20230508 15:33:44.364" endtime="20230508 15:33:44.365"/>
+</kw>
+<kw name="Update Value To Json" library="JSONLibrary">
+<var>${EVENTO}</var>
+<arg>${EVENTO}</arg>
+<arg>$..externalId</arg>
+<arg>${id_externo}</arg>
+<doc>Update value to JSON using JSONPath</doc>
+<msg timestamp="20230508 15:33:44.378" level="INFO">${EVENTO} = {'externalId': '65105f72-2b7d-4cc0-b36e-3ec17f89e605', 'paymentOrderId': 'teste', 'chargeId': 'teste', 'transactionCode': '123', 'returnRecurrenceCode': '0', 'msgRecurrence': 'teste-robot'}</msg>
+<status status="PASS" starttime="20230508 15:33:44.365" endtime="20230508 15:33:44.378"/>
+</kw>
+<kw name="Kafka Producer" library="kafkaProducer">
+<arg>${topico}</arg>
+<arg>${SCHEMA}</arg>
+<arg>${EVENTO}</arg>
+<arg>${KAFKA_BOOTSTRAP_SERVERS}</arg>
+<msg timestamp="20230508 15:33:45.884" level="INFO">{'externalId': '65105f72-2b7d-4cc0-b36e-3ec17f89e605', 'paymentOrderId': 'teste', 'chargeId': 'teste', 'transactionCode': '123', 'returnRecurrenceCode': '0', 'msgRecurrence': 'teste-robot'}
+evento produzido: {'externalId': '65105f72-2b7d-4cc0-b36e-3ec17f89e605', 'paymentOrderId': 'teste', 'chargeId': 'teste', 'transactionCode': '123', 'returnRecurrenceCode': '0', 'msgRecurrence': 'teste-robot'}</msg>
+<status status="PASS" starttime="20230508 15:33:44.378" endtime="20230508 15:33:45.884"/>
+</kw>
+<status status="PASS" starttime="20230508 15:33:44.364" endtime="20230508 15:33:45.884"/>
+</kw>
+<kw name="Então ao consultar a api da regua do link buscando por id e parcela o status code &quot;200&quot;" library="FinanceRuleCancellationSteps" sourcename="ao consultar a api da regua do link buscando por id e parcela o status code &quot;${status_code}&quot;">
+<kw name="Enviar uma requisição com método GET" library="Requests">
+<var>${response}</var>
+<arg>ingressDev</arg>
+<arg>${INGRESS_URL}</arg>
+<arg>${rotaReguaLink}/idexterno/${id_externo}/parcela/${numero_parcela}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=${alias}</arg>
+<arg>url=${baseUrl}</arg>
+<arg>verify=false</arg>
+<arg>disable_warnings=1</arg>
+<arg>proxies=htpps</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230508 15:33:45.886" level="INFO">Creating Session using : alias=ingressDev, url=https://internal-k8s-meiosdep-ingressm-64700d1053-943128772.ca-central-1.elb.amazonaws.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=htpps, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230508 15:33:45.886" endtime="20230508 15:33:45.886"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=${alias}</arg>
+<arg>url=${endpoint}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230508 15:33:46.567" level="INFO">GET Request : url=https://internal-k8s-meiosdep-ingressm-64700d1053-943128772.ca-central-1.elb.amazonaws.com/finance-rule-storage-api/v1/ruleapi/idexterno/65105f72-2b7d-4cc0-b36e-3ec17f89e605/parcela/2 
+ path_url=/finance-rule-storage-api/v1/ruleapi/idexterno/65105f72-2b7d-4cc0-b36e-3ec17f89e605/parcela/2 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230508 15:33:46.567" level="INFO">GET Response : url=https://internal-k8s-meiosdep-ingressm-64700d1053-943128772.ca-central-1.elb.amazonaws.com/finance-rule-storage-api/v1/ruleapi/idexterno/65105f72-2b7d-4cc0-b36e-3ec17f89e605/parcela/2 
+ status=200, reason= 
+ headers={'Date': 'Mon, 08 May 2023 18:33:46 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive'} 
+ body={"externalID":"65105f72-2b7d-4cc0-b36e-3ec17f89e605","currentInstallment":"2","paymentOrderID":"TESTE_AUTOMATIZADO","chargeID":"TESTE_AUTOMATIZADO","amount":"50.0","productID":"000","subProduct":"000","productCategory":"000","lasTransactionId":null,"authCode":"0000000","orderID":"TESTE_AUTOMATIZADO","transactionID":"000000","transactionTimestamp":"2023-01-09T11:34:55.775","acquirer":"TESTE_AUTOMATIZADO","brand":"VISA","cardId":"TESTE_AUTOMATIZADO","customerId":"TESTE_AUTOMATIZADO","firstDigits":"123456","lastDigits":"7890","installments":"3","endorsement":"","companyCode":"000","comercialContract":"","compositionInstallmentValue":"0","message":"ESSE E UM TESTE AUTOMATIZADO","codeType":"UNKNOWN","posMessage":"ESSE E UM TESTE AUTOMATIZADO","chargeInterval":1,"maximumBillingPeriod":1,"secondOptionPaymentMethod":"ouro","lastProcessDate":"2023-05-08T14:33:44.276","insertionDate":"2023-05-08T15:33:44.276","processCounter":0,"state":"RECORRENCIA_CANCELADA","transitions":"REGUA_CRIADA, RECORRENCIA_CANCELADA","traceId":"TESTE_AUTOMATIZADO","expirationDateBankSlip":null,"communications":null} 
+ </msg>
+<msg timestamp="20230508 15:33:46.567" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230508 15:33:45.886" endtime="20230508 15:33:46.567"/>
+</kw>
+<msg timestamp="20230508 15:33:46.567" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230508 15:33:45.885" endtime="20230508 15:33:46.567"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${response}</arg>
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20230508 15:33:46.569" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230508 15:33:46.567" endtime="20230508 15:33:46.569"/>
+</kw>
+<status status="PASS" starttime="20230508 15:33:45.885" endtime="20230508 15:33:46.569"/>
+</kw>
+<kw name="E o valor do campo &quot;state&quot; deve estar com o valor &quot;RECORRENCIA_CANCELADA&quot;" library="FinanceRuleCancellationSteps" sourcename="o valor do campo &quot;${campo}&quot; deve estar com o valor &quot;${valor_campo}&quot;">
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${campo_response}</var>
+<arg>${response.json()}</arg>
+<arg>${campo}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20230508 15:33:46.582" level="INFO">${campo_response} = ['RECORRENCIA_CANCELADA']</msg>
+<status status="PASS" starttime="20230508 15:33:46.569" endtime="20230508 15:33:46.582"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${campo_response}</var>
+<arg>${campo_response[0]}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20230508 15:33:46.583" level="INFO">${campo_response} = RECORRENCIA_CANCELADA</msg>
+<status status="PASS" starttime="20230508 15:33:46.582" endtime="20230508 15:33:46.583"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${campo_response}</arg>
+<arg>${valor_campo}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230508 15:33:46.583" endtime="20230508 15:33:46.583"/>
+</kw>
+<status status="PASS" starttime="20230508 15:33:46.569" endtime="20230508 15:33:46.583"/>
+</kw>
+<kw name="E o valor do campo &quot;transitions&quot; deve estar com o valor &quot;REGUA_CRIADA, RECORRENCIA_CANCELADA&quot;" library="FinanceRuleCancellationSteps" sourcename="o valor do campo &quot;${campo}&quot; deve estar com o valor &quot;${valor_campo}&quot;">
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${campo_response}</var>
+<arg>${response.json()}</arg>
+<arg>${campo}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20230508 15:33:46.595" level="INFO">${campo_response} = ['REGUA_CRIADA, RECORRENCIA_CANCELADA']</msg>
+<status status="PASS" starttime="20230508 15:33:46.583" endtime="20230508 15:33:46.595"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${campo_response}</var>
+<arg>${campo_response[0]}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20230508 15:33:46.596" level="INFO">${campo_response} = REGUA_CRIADA, RECORRENCIA_CANCELADA</msg>
+<status status="PASS" starttime="20230508 15:33:46.596" endtime="20230508 15:33:46.596"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${campo_response}</arg>
+<arg>${valor_campo}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230508 15:33:46.596" endtime="20230508 15:33:46.596"/>
+</kw>
+<status status="PASS" starttime="20230508 15:33:46.583" endtime="20230508 15:33:46.596"/>
+</kw>
+<tag>finance-rule-cancellation</tag>
+<tag>processa-cancelamento-de-contrato-unknown</tag>
+<tag>regression</tag>
+<tag>regua-de-retentativas</tag>
+<status status="PASS" starttime="20230508 15:33:43.622" endtime="20230508 15:33:46.597"/>
+</test>
+<status status="PASS" starttime="20230508 15:33:38.539" endtime="20230508 15:33:46.598"/>
+</suite>
+<status status="PASS" starttime="20230508 15:33:38.519" endtime="20230508 15:33:46.601"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="2" fail="0" skip="0">finance-rule-cancellation</stat>
+<stat pass="1" fail="0" skip="0">processa-cancelamento-de-contrato-irreversible</stat>
+<stat pass="1" fail="0" skip="0">processa-cancelamento-de-contrato-unknown</stat>
+<stat pass="2" fail="0" skip="0">regression</stat>
+<stat pass="2" fail="0" skip="0">regua-de-retentativas</stat>
+</tag>
+<suite>
+<stat pass="2" fail="0" skip="0" id="s1" name="Finance-Rule-Cancellation">Finance-Rule-Cancellation</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s1" name="Finance-Rule-Cancellation">Finance-Rule-Cancellation.Finance-Rule-Cancellation</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
